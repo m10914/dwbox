@@ -140,7 +140,7 @@ dwbox.adjust = function(){
 		
 		var offset_y = (dwbox.size.height - curh)*0.5;
 		if(offset_y < 0) offset_y = 0;
-		//if(dwbox.scroll.y > 0) offset_y += dwbox.scroll.y;
+		if(curh > dwbox.size.height) offset_y -= dwbox.scroll.y-20;
 		
 		$('div.dwbox_wrap').css('left',offset_x+'px').css('top',offset_y+'px');
 	}
