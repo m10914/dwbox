@@ -229,19 +229,18 @@ dwbox.stoploading = function(){
 			var nw = iw;
 			var nh = ih;
 			
-			console.log(nw+' '+nh);
 			if(nw > dwbox.size.width-20)
 			{
 				nw = dwbox.size.width-20;
 				nh = nw*ih/iw;
 			}
-			console.log(nw+' '+nh);
+
 			if(nh > dwbox.size.height-20)
 			{
 				nh = dwbox.size.height-20;
 				nw = nh*iw/ih;
 			}
-			console.log(nw+' '+nh);
+
 			
 			$(images[i]).css('width',nw+'px').css('height',nh+'px');
 		}
