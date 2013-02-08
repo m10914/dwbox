@@ -93,10 +93,14 @@ dwbox = {};
 
 	dwbox.closeOnOverlayClick = true; //to close dwbox on overlay click
 	dwbox.backgroundSrc = '/images/black40.png'; //background image source
+	
+	dwbox.resizeImageToFitTheScreen = true;
+	
 	dwbox.loadingSrc = '/images/loader.gif';
 	dwbox.loadingWidth = 90;
 	dwbox.loadingHeight = 90;
 	dwbox.loadingBackgroundColor = '#e7ebee';
+	
 	dwbox.headerHTML = "";
 	dwbox.footerHTML = "";
 	
@@ -180,10 +184,8 @@ $(document).ready(function(){
 			dwbox.close();
 	});
 	
-	//closebtn_click
-	// TODO: thesame
 	
-	dwbox.scroll = { x:window.scrollX, y:window.scrollY };
+	dwbox.scroll = { x:$(window).scrollLeft(), y:$(window).scrollTop() };
 	dwbox.size = { width:$(window).width(), height: $(window).height() };
 		
 });
@@ -215,6 +217,36 @@ dwbox.stoploading = function(){
 		
 	$('div.dwbox_wrap').removeClass('loading');
 	$('div.dwbox_wrap').css('width','auto').css('height','auto');
+	
+	//resize images
+	if(dwbox.resizeImageToFitTheScreen == true)
+	{
+		var images = $('div.dwbox_wrap img').toArray();
+		for(var i=0; i < images.length; i++)
+		{
+			var iw = $(images[i]).width();
+			var ih = $(images[i]).height();
+			var nw = iw;
+			var nh = ih;
+			
+			console.log(nw+' '+nh);
+			if(nw > dwbox.size.width-20)
+			{
+				nw = dwbox.size.width-20;
+				nh = nw*ih/iw;
+			}
+			console.log(nw+' '+nh);
+			if(nh > dwbox.size.height-20)
+			{
+				nh = dwbox.size.height-20;
+				nw = nh*iw/ih;
+			}
+			console.log(nw+' '+nh);
+			
+			$(images[i]).css('width',nw+'px').css('height',nh+'px');
+		}
+	}
+	
 	dwbox.adjust();
 
 }
